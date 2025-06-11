@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    background-image: url("images/pngtree.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+h1{
+    color: midnightblue;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+button{
+    text-decoration: none;
+    color: white;
+    background-color: midnightblue;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-style: none;
+    margin: 10px;
+}
+button:hover{
+    background-color: white;
+    color: midnightblue;
+}
+.choice{
+    justify-items: center;
+    padding-top: 100px;
+}
+
+.display p{
+    margin-bottom: 0;
+}

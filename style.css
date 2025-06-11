@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    background-image: url("images/pngtree.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.flex-col {
+    display: flex;
+    font-weight: bolder;
+    font-size: 90px;
+    flex-direction: column;
+    align-items: flex-start;
+    place-items: center;
+    color: midnightblue;
+    padding-right: 50px;
+    padding-top: 100px;
+
+}
+
+.line2 {
+    text-indent: 10vw;
+}
+
+.line3 {
+    text-indent: 20vw;
+}
+
+.button{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button span{
+    text-decoration: none;
+    color: white;
+    background-color: midnightblue;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px 20px;
+
+
+}
+.button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.button span:hover{
+    background-color: white;
+    color: midnightblue;
+}
