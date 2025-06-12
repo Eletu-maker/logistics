@@ -59,10 +59,12 @@ function register(){
 
         if(result.message){
             alert(result.data)
+            location.reload();
 
         }
         else {
             alert(result.data)
+            location.reload();
         }
 
     }catch (error){
@@ -70,7 +72,33 @@ function register(){
     }
 
 }
+async function getRider(){
+    const email = document.getElementById("login_email").value
+    try {
+        const data = await fetch("http://localhost:9002/api/getRider", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
 
+                }
+            )
+        })
+        const result = await data.json()
+
+        if(result.message){
+            return result.data
+        }else {
+            alert(result.data)
+        }
+
+    }catch (error){
+        alert("Network or server error: " + error.data)
+    }
+}
 
 
 async  function registerLogin(){
@@ -95,9 +123,13 @@ async  function registerLogin(){
         const result = await data.json()
         console.log(result)
         if(result.message){
-            alert(result.data.message)
+            alert(result.data)
 
-           window.location.href = "Riderlogin.html";
+            const riderData = await getRider()
+            if (riderData){
+                localStorage.setItem("rider", JSON.stringify(riderData));
+                window.location.href = "Riderlogin.html";
+            }
         }else {
             alert(result.data)
         }

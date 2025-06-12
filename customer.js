@@ -9,7 +9,7 @@ function login(){
             Enter your Password
         </p>
         <input type="text" id="login_password">
-        <button onclick="registerLogin()"> submit</button>
+        <button onclick="Login()"> submit</button>
     `
     const displayRegister = document.getElementById("display_Register")
     displayRegister.innerHTML= null
@@ -40,7 +40,7 @@ async function submitSender(){
     const password = document.getElementById("password").value
 
     try {
-        const data =  await fetch(" http://localhost:9002/api/registerRider",{
+        const data =  await fetch(" http://localhost:9002/api/registerSender",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -56,11 +56,14 @@ async function submitSender(){
 
 
         if(result.message){
+
             alert(result.data.message)
+            location.reload();
 
         }
         else {
             alert(result.data)
+            location.reload();
         }
 
     }catch (error){
@@ -69,15 +72,44 @@ async function submitSender(){
 
 }
 
+async function getSender(){
+    const email = document.getElementById("login_email").value
+    try {
+        const data = await fetch("http://localhost:9002/api/getSender", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
+
+                }
+            )
+        })
+        const result = await data.json()
+
+        if(result.message){
+            return result.data
+        }else {
+            alert(result.data)
+        }
+
+    }catch (error){
+        alert("Network or server error: " + error.data)
+    }
+}
 
 
-async  function registerLogin(){
+
+
+async  function Login(){
     const email = document.getElementById("login_email").value
     const password = document.getElementById("login_password").value
 
 
     try {
-        const data = await fetch("http://localhost:9002/api/loginRider",{
+        const data = await fetch("http://localhost:9002/api/loginSender",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -93,8 +125,16 @@ async  function registerLogin(){
         const result = await data.json()
         console.log(result)
         if(result.message){
+            const senderData = await getSender()
+            //console.log(senderData)
             alert(result.data.message)
-            window.location.href = "CustomerLogin.html";
+
+
+            if (senderData){
+                localStorage.setItem("sender", JSON.stringify(senderData));
+                window.location.href = "CustomerLogin.html";
+            }
+
         }else {
             alert(result.data)
         }
