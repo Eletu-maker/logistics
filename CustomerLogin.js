@@ -1,12 +1,15 @@
 
-function displayRider() {
+async  function displayRider() {
 
     const sender = getinfo()
     if (sender) {
-        document.getElementById("sender-info").innerHTML = `
-                    <h2>Welcome, ${sender.name}</h2>
-                   
-                `;
+        document.getElementById("sender-info").innerHTML = `<h2>Welcome, ${sender.name}</h2>`;
+        const senderDetails = await getSender();
+
+        if(senderDetails.sender.dispatchAsArrived){
+            alert("dispatch has arrived to your location")
+            senderDetails.sender.dispatchAsArrived = false
+        }
     } else {
         document.getElementById("sender-info").innerText = "No sender info found.";
     }
@@ -118,3 +121,64 @@ async function cancelRide(){
     }
 
 }
+
+
+async function getSender(){
+    const value = getinfo()
+    const email = value.email
+    try {
+        const data = await fetch("http://localhost:9002/api/getSender", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
+
+                }
+            )
+        })
+        const result = await data.json()
+
+        if(result.message){
+            return result.data;
+        }else {
+            alert(result.data)
+        }
+
+    }catch (error){
+        alert("Network or server error: " + error.data)
+    }
+}
+
+async function startTrip(){
+    const value = getinfo()
+    const email = value.email
+    try {
+        const data = await fetch("http://localhost:9003/api/startTrip",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
+
+                }
+            )
+        })
+        const result = await data.json()
+        console.log(result.data)
+        if(result.message){
+            alert(result.data.messages)
+        }else {
+            alert(result.data)
+        }
+
+    }catch (error){
+        alert(error.data)
+    }
+
+}
+

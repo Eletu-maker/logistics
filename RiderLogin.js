@@ -22,8 +22,8 @@ function  getInfo(){
 }
 
 async function getRider(){
-    const data= getInfo()
-    const email = data.email
+    const value= getInfo()
+    const email = value.email
     try {
         const data = await fetch("http://localhost:9002/api/getRider", {
             method: "POST",
@@ -52,8 +52,8 @@ async function getRider(){
 
 
 async function viewDetails(){
-    const data= getInfo()
-    const email = data.email
+    const value= getInfo()
+    const email = value.email
     try{
         const data = await fetch("http://localhost:9002/api/checkInfo",{
             method: "POST",
@@ -90,10 +90,11 @@ async function viewDetails(){
 }
 
 async function atSenderAddress(){
-    console.log("ydhalsv")
+    const value= getInfo()
+    const email = value.email
 
     try {
-        const data = await fetch("http://localhost:9002/api/atSenderAddress", {
+        const data = await fetch("http://localhost:9003/api/atSenderAddress", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -108,10 +109,47 @@ async function atSenderAddress(){
 
         const result = await data.json()
         console.log(result)
+        if(result.message){
+            document.getElementById("response").innerHTML=`<p>Sender has being notified</p>`
+        }else {
+            alert(result.data)
+        }
 
     }catch (error){
-
+            alert(error.data)
     }
 
+
+}
+
+async function packageDelivered(){
+    const value= getInfo()
+    const email = value.email
+    try {
+        const data = await fetch("http://localhost:9003/api/packageDelivered", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email
+
+                }
+            )
+        })
+
+        const result = await data.json()
+        console.log(result)
+        console.log(result)
+        if(result.message){
+
+        }else {
+            alert(result.data)
+        }
+
+    }catch (error){
+        alert(error.data)
+    }
 
 }
