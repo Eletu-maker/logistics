@@ -5,6 +5,7 @@ async  function displayRider() {
     if (sender) {
         document.getElementById("sender-info").innerHTML = `<h2>Welcome, ${sender.name}</h2>`;
         const senderDetails = await getSender();
+        console.log(senderDetails)
 
         if(senderDetails.sender.dispatchAsArrived){
             alert("dispatch has arrived to your location")

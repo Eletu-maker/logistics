@@ -1,14 +1,20 @@
-function displayRider() {
+async function displayRider() {
     const rider =  getInfo()
     //console.log(rider)
     if (rider) {
         //console.log(rider)
         document.getElementById("rider-info").innerHTML = `<h2>Welcome, ${rider.name}</h2>`;
-        //console.log(getRider())
-        if(!getRider().available ){
-            alert("your have a dispatch order")
-            document.getElementById("check_info").innerHTML=`<button onclick="viewDetails()">view details</button>`
-        }
+
+       // console.log(getRider())
+        const riderDetails = await getRider();
+        //console.log(riderDetails.available)
+
+      if(!riderDetails.available ){
+          alert("your have a dispatch order")
+          document.getElementById("check_info").innerHTML=`<button onclick="viewDetails()">view details</button>`
+      }
+
+
 
     } else {
         document.getElementById("rider-info").innerText = "No rider info found.";
