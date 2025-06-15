@@ -5,20 +5,20 @@ async  function displayRider() {
     if (sender) {
         document.getElementById("sender-info").innerHTML = `<h2>Welcome, ${sender.name}</h2>`;
         const senderDetails = await getSender();
-        console.log(senderDetails)
+        //console.log(senderDetails)
 
-        if(senderDetails.sender.dispatchAsArrived){
+        if(senderDetails.sender.seenRider){
             alert("dispatch has arrived to your location")
-            senderDetails.sender.dispatchAsArrived = false
+          console.log(  await arrived())
         }
     } else {
         document.getElementById("sender-info").innerText = "No sender info found.";
     }
 }
 function getinfo(){
-    const data = JSON.parse(localStorage.getItem("sender"));
-    const sender = data.sender;
-    return sender;
+    const data = JSON.parse(sessionStorage.getItem("sender"));
+    console.log(data)
+    return data.sender;
 }
 
 function rideInfo(){
@@ -52,7 +52,7 @@ async function orderRide(){
         const receiverNumber = document.getElementById("receiver_number").value
         const receiverAddress = document.getElementById("receiver_address").value
         try {
-            const info = await  fetch("http://localhost:9002/api/orderRide",{
+            const info = await  fetch("http://localhost:9003/api/orderRide",{
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -68,20 +68,18 @@ async function orderRide(){
             console.log(result)
 
             if(result.message){
+                console.log("13")
                 alert(result.data.message)
                 document.getElementById("loading").innerHTML = "your rider will contact you soon";
                 document.getElementById("cancel_button").innerHTML=`<button onclick="cancelRide()">cancel ride</button>`
             }else {
                 alert(result.data)
                 document.getElementById("loading").innerHTML = "please try again in the next 30 mins";
+                console.log("12")
             }
 
-
-
-
-
         }catch (error){
-            alert( error.data)
+
         }
     }, 4000);
 
@@ -92,7 +90,7 @@ async function cancelRide(){
     const  email = data.email
     console.log(email)
     try {
-        const info = await  fetch("http://localhost:9002/api/cancelTrip",{
+        const info = await  fetch("http://localhost:9003/api/cancelTrip",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -110,6 +108,7 @@ async function cancelRide(){
 
         }else {
             alert(result.data)
+            console.log("10")
            // location.reload();
         }
 
@@ -118,7 +117,7 @@ async function cancelRide(){
 
 
     }catch (error){
-        alert(error.data)
+        alert(error)
     }
 
 }
@@ -127,8 +126,8 @@ async function cancelRide(){
 async function getSender(){
     const value = getinfo()
     const email = value.email
-    try {
-        const data = await fetch("http://localhost:9002/api/getSender", {
+    try{
+        const data = await fetch("http://localhost:9003/api/getSender", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -146,10 +145,12 @@ async function getSender(){
             return result.data;
         }else {
             alert(result.data)
+            console.log("9")
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert( error)
+        console.log("8")
     }
 }
 
@@ -172,14 +173,89 @@ async function startTrip(){
         const result = await data.json()
         console.log(result.data)
         if(result.message){
+
             alert(result.data.messages)
         }else {
+            console.log(result.data)
             alert(result.data)
+            console.log("5")
         }
 
     }catch (error){
-        alert(error.data)
+        console.log("4")
+        alert(error)
     }
 
 }
 
+async function logout(){
+    const value = getinfo()
+    const email = value.email
+
+
+    try{
+
+        const data = await fetch("http://localhost:9003/api/logoutSender",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
+
+                }
+            )
+
+        })
+        const result = await data.json()
+        if(result.message){
+            console.log("3")
+            alert(result.data.message)
+            window.location.href = "index.html"
+        }else {
+            console.log("2")
+            alert(result.message)
+        }
+    }catch (error){
+        console.log("1")
+        alert(error)
+    }
+}
+
+
+
+async function arrived(){
+    const value = getinfo()
+    const email = value.email
+
+
+    try {
+
+        const data = await fetch("http://localhost:9003/api/arrived",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
+
+                }
+            )
+
+        })
+        const result = await data.json()
+        console.log(result)
+        /*
+        if(result.message){
+        }else {
+            alert(result.message)
+        }
+
+         */
+    }catch (error){
+        console.log(error)
+        //alert(error)
+    }
+}

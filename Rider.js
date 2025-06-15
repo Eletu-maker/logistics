@@ -1,16 +1,18 @@
 function login(){
+    document.getElementById("display_login").style.display = "block";
+    document.getElementById("display_login").innerHTML = "<p>Login form goes here</p>";
+    document.getElementById("display_Register").style.display = "none";
     const displayLogin = document.getElementById("display_login")
     displayLogin.innerHTML=`
-      <p>
-            Enter your Email
-        </p>
-        <input type="text" id="login_email">
-        <p>
-            Enter your Password
-        </p>
-        <input type="text" id="login_password">
-        
-       <button onclick="registerLogin()"> submit</button>
+     <div class="form-container">
+    <p>Enter your Email</p>
+    <input type="email" id="login_email" placeholder="example@domain.com">
+
+    <p>Enter your Password</p>
+    <input type="password" id="login_password" placeholder="********">
+
+    <button onclick="registerLogin()">Submit</button>
+</div>
     `
     const displayRegister = document.getElementById("display_Register")
     displayRegister.innerHTML= null
@@ -18,17 +20,26 @@ function login(){
 
 
 function register(){
+    document.getElementById("display_Register").style.display = "block";
+    document.getElementById("display_Register").innerHTML = "<p>Registration form goes here</p>";
+    document.getElementById("display_login").style.display = "none";
     const displayRegister = document.getElementById("display_Register")
     displayRegister.innerHTML=`
-     <p>Enter your Name</p>
-        <input type="text" id="name">
-        <p>Enter your Email</p>
-        <input type="text" id="email">
-        <p>Enter your PhoneNumber</p>
-        <input type="text" id="phoneNumber">
-        <p>Enter your Password</p>
-        <input type="text" id="password">
-        <button onclick="submit()"> submit</button>
+    <div class="form-container">
+    <p>Enter your Name</p>
+    <input type="text" id="name" placeholder="John Doe">
+
+    <p>Enter your Email</p>
+    <input type="email" id="email" placeholder="example@domain.com">
+
+    <p>Enter your Phone Number</p>
+    <input type="tel" id="phoneNumber" placeholder="08123456789">
+
+    <p>Enter your Password</p>
+    <input type="password" id="password" placeholder="********">
+
+    <button onclick="submit()">Submit</button>
+</div>
     `
     const displayLogin = document.getElementById("display_login")
     displayLogin.innerHTML= null
@@ -41,7 +52,7 @@ function register(){
     const password = document.getElementById("password").value
 
     try {
-        const data =  await fetch(" http://localhost:9002/api/registerRider",{
+        const data =  await fetch("http://localhost:9003/api/registerRider",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -68,14 +79,14 @@ function register(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert("Network or server error: " + error)
     }
 
 }
 async function getRider(){
     const email = document.getElementById("login_email").value
     try {
-        const data = await fetch("http://localhost:9002/api/getRider", {
+        const data = await fetch("http://localhost:9003/api/getRider", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -96,7 +107,7 @@ async function getRider(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert("Network or server error: " + error)
     }
 }
 
@@ -107,7 +118,7 @@ async  function registerLogin(){
 
 
     try {
-        const data = await fetch("http://localhost:9002/api/loginRider",{
+        const data = await fetch("http://localhost:9003/api/loginRider",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -119,7 +130,7 @@ async  function registerLogin(){
                 }
             )
         })
-
+        ;
         const result = await data.json()
         console.log(result)
         if(result.message){
@@ -127,7 +138,7 @@ async  function registerLogin(){
 
             const riderData = await getRider()
             if (riderData){
-                localStorage.setItem("rider", JSON.stringify(riderData));
+                sessionStorage.setItem("rider", JSON.stringify(riderData));
                 window.location.href = "Riderlogin.html";
             }
         }else {
@@ -135,7 +146,7 @@ async  function registerLogin(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert("Network or server error: " + error)
     }
 }
 

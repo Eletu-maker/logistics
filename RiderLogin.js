@@ -1,3 +1,4 @@
+
 async function displayRider() {
     const rider =  getInfo()
     //console.log(rider)
@@ -7,7 +8,7 @@ async function displayRider() {
 
        // console.log(getRider())
         const riderDetails = await getRider();
-        //console.log(riderDetails.available)
+        console.log(riderDetails.available)
 
       if(!riderDetails.available ){
           alert("your have a dispatch order")
@@ -22,8 +23,9 @@ async function displayRider() {
 
 }
 
+
 function  getInfo(){
-    const riderInfo = JSON.parse(localStorage.getItem("rider"));
+    const riderInfo = JSON.parse(sessionStorage.getItem("rider"));
     return riderInfo
 }
 
@@ -31,7 +33,7 @@ async function getRider(){
     const value= getInfo()
     const email = value.email
     try {
-        const data = await fetch("http://localhost:9002/api/getRider", {
+        const data = await fetch("http://localhost:9003/api/getRider", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -52,7 +54,7 @@ async function getRider(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert( error)
     }
 }
 
@@ -61,7 +63,7 @@ async function viewDetails(){
     const value= getInfo()
     const email = value.email
     try{
-        const data = await fetch("http://localhost:9002/api/checkInfo",{
+        const data = await fetch("http://localhost:9003/api/checkInfo",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -78,11 +80,13 @@ async function viewDetails(){
         const value = result.data
         if(result.message){
             document.getElementById("view").innerHTML=`
+<div class="inner">
             <p>Sender Address : ${value["Sender Address: "]}</p>
             <p>Sender phoneNumber : ${value["Sender PhoneNumber: "]}</p>
             <p>Receiver Address : ${value["Receiver Address: "]} </p>
             <p>Receiver PhoneNumber ${value["Receiver PhoneNumber: "]}: </p>
             <button onclick="atSenderAddress()">Rider at Sender Address</button>
+            </div>
             `
 
 
@@ -91,7 +95,7 @@ async function viewDetails(){
         }
 
     }catch (error){
-        alert(error.data)
+        alert(error)
     }
 }
 
@@ -122,7 +126,7 @@ async function atSenderAddress(){
         }
 
     }catch (error){
-            alert(error.data)
+            alert(error)
     }
 
 
@@ -130,6 +134,7 @@ async function atSenderAddress(){
 
 async function packageDelivered(){
     const value= getInfo()
+
     const email = value.email
     try {
         const data = await fetch("http://localhost:9003/api/packageDelivered", {
@@ -149,13 +154,50 @@ async function packageDelivered(){
         console.log(result)
         console.log(result)
         if(result.message){
-
+            alert(result.data.message)
         }else {
             alert(result.data)
         }
 
     }catch (error){
-        alert(error.data)
+        alert(error)
     }
+
+}
+
+
+async function logout(){
+    const value = getInfo()
+    const email = value.email
+    console.log(email)
+
+
+    try {
+
+        const data = await fetch("http://localhost:9003/api/logoutRider",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                {
+                    email: email,
+
+                }
+            )
+
+        })
+        const result = await data.json()
+        if(result.message){
+            alert(result.data.message)
+
+            window.location.href = "index.html"
+        }else {
+            alert(result.message)
+        }
+    }catch (error){
+        alert(error)
+    }
+
 
 }

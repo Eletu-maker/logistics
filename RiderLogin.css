@@ -1,3 +1,4 @@
+/*
 body{
     margin: 0;
     padding: 0;
@@ -24,4 +25,74 @@ button{
 button:hover{
     background-color: white;
     color: midnightblue;
+}
+
+ */
+
+/* RiderLogin.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("images/pngtree.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: rgba(0,0,1000);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    color:  rgba(0,0,1000);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+#rider-info,
+#check_info,
+#view,
+#response {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+p {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: midnightblue;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 10px 10px 0 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color:  rgba(0,0,1000);
+    transform: scale(1.05);
+}
+
+button + button {
+    margin-left: 10px;
+}
+.inner{
+    font-weight: 500;
 }

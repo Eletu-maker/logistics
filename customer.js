@@ -1,32 +1,46 @@
 function login(){
+    document.getElementById("display_login").style.display = "block";
+    document.getElementById("display_login").innerHTML = "<p>Login form goes here</p>";
+    document.getElementById("display_Register").style.display = "none";
     const displayLogin = document.getElementById("display_login")
     displayLogin.innerHTML=`
-      <p>
-            Enter your Email
-        </p>
-        <input type="text" id="login_email">
-        <p>
-            Enter your Password
-        </p>
-        <input type="text" id="login_password">
-        <button onclick="Login()"> submit</button>
+     <div class="form-container">
+    <p>Enter your Email</p>
+    <input type="email" id="login_email" placeholder="example@domain.com">
+
+    <p>Enter your Password</p>
+    <input type="password" id="login_password" placeholder="********">
+
+    <button onclick="Login()">Submit</button>
+</div>
+        
     `
     const displayRegister = document.getElementById("display_Register")
     displayRegister.innerHTML= null
 }
 
 function register(){
+    document.getElementById("display_Register").style.display = "block";
+    document.getElementById("display_Register").innerHTML = "<p>Registration form goes here</p>";
+    document.getElementById("display_login").style.display = "none";
     const displayRegister = document.getElementById("display_Register")
     displayRegister.innerHTML=`
-     <p>Enter your Name</p>
-        <input type="text" id="senderName">
-        <p>Enter your Email</p>
-        <input type="text" id="senderEmail">
-        <p>Enter your PhoneNumber</p>
-        <input type="text" id="senderNumber">
-        <p>Enter your Password</p>
-        <input type="text" id="password">
-        <button onclick="submitSender()"> submit</button>
+      <div class="form-container">
+    <p>Enter your Name</p>
+    <input type="text" id="senderName" placeholder="John Doe">
+
+    <p>Enter your Email</p>
+    <input type="email" id="senderEmail" placeholder="example@domain.com">
+
+    <p>Enter your Phone Number</p>
+    <input type="tel" id="senderNumber" placeholder="08123456789">
+
+    <p>Enter your Password</p>
+    <input type="password" id="password" placeholder="********">
+
+    <button onclick="submitSender()">Submit</button>
+</div>
+        
     `
     const displayLogin = document.getElementById("display_login")
     displayLogin.innerHTML= null
@@ -40,7 +54,7 @@ async function submitSender(){
     const password = document.getElementById("password").value
 
     try {
-        const data =  await fetch(" http://localhost:9002/api/registerSender",{
+        const data =  await fetch("http://localhost:9003/api/registerSender",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -67,7 +81,7 @@ async function submitSender(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert(error)
     }
 
 }
@@ -75,7 +89,7 @@ async function submitSender(){
 async function getSender(){
     const email = document.getElementById("login_email").value
     try {
-        const data = await fetch("http://localhost:9002/api/getSender", {
+        const data = await fetch("http://localhost:9003/api/getSender", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -96,7 +110,7 @@ async function getSender(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert( error)
     }
 }
 
@@ -109,7 +123,7 @@ async  function Login(){
 
 
     try {
-        const data = await fetch("http://localhost:9002/api/loginSender",{
+        const data = await fetch("http://localhost:9003/api/loginSender",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -131,7 +145,7 @@ async  function Login(){
 
 
             if (senderData){
-                localStorage.setItem("sender", JSON.stringify(senderData));
+                sessionStorage.setItem("sender", JSON.stringify(senderData));
                 window.location.href = "CustomerLogin.html";
             }
 
@@ -140,7 +154,7 @@ async  function Login(){
         }
 
     }catch (error){
-        alert("Network or server error: " + error.data)
+        alert( error)
     }
 }
 

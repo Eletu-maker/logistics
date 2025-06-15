@@ -1,3 +1,4 @@
+/*
 body{
     margin: 0;
     padding: 0;
@@ -38,4 +39,102 @@ button:hover{
 
 .display p{
     margin-bottom: 0;
+}
+
+ */
+/* Rider.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("images/pngtree.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: rgba(0,0,1000);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+    padding-top: 60px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-style: italic;
+}
+
+.choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+button {
+    padding: 15px 30px;
+    border: none;
+    background-color: midnightblue;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: rgba(0,0,1000);
+    transform: scale(1.05);
+}
+
+.display {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 15px;
+    display: none;
+    color: #fff;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+    color: black;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+button {
+    margin-top: 10px;
 }
