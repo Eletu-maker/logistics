@@ -54,7 +54,7 @@ async function submitSender(){
     const password = document.getElementById("password").value
 
     try {
-        const data =  await fetch("http://localhost:9003/api/registerSender",{
+        const data =  await fetch("http://localhost:9004/api/registerSender",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -89,7 +89,7 @@ async function submitSender(){
 async function getSender(){
     const email = document.getElementById("login_email").value
     try {
-        const data = await fetch("http://localhost:9003/api/getSender", {
+        const data = await fetch("http://localhost:9004/api/getSender", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -123,7 +123,7 @@ async  function Login(){
 
 
     try {
-        const data = await fetch("http://localhost:9003/api/loginSender",{
+        const data = await fetch("http://localhost:9004/api/loginSender",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"

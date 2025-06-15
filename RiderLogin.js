@@ -33,7 +33,7 @@ async function getRider(){
     const value= getInfo()
     const email = value.email
     try {
-        const data = await fetch("http://localhost:9003/api/getRider", {
+        const data = await fetch("http://localhost:9004/api/getRider", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -63,7 +63,7 @@ async function viewDetails(){
     const value= getInfo()
     const email = value.email
     try{
-        const data = await fetch("http://localhost:9003/api/checkInfo",{
+        const data = await fetch("http://localhost:9004/api/checkInfo",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -104,7 +104,7 @@ async function atSenderAddress(){
     const email = value.email
 
     try {
-        const data = await fetch("http://localhost:9003/api/atSenderAddress", {
+        const data = await fetch("http://localhost:9004/api/atSenderAddress", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -137,7 +137,7 @@ async function packageDelivered(){
 
     const email = value.email
     try {
-        const data = await fetch("http://localhost:9003/api/packageDelivered", {
+        const data = await fetch("http://localhost:9004/api/packageDelivered", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -174,7 +174,7 @@ async function logout(){
 
     try {
 
-        const data = await fetch("http://localhost:9003/api/logoutRider",{
+        const data = await fetch("http://localhost:9004/api/logoutRider",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

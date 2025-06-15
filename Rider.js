@@ -52,7 +52,7 @@ function register(){
     const password = document.getElementById("password").value
 
     try {
-        const data =  await fetch("http://localhost:9003/api/registerRider",{
+        const data =  await fetch("http://localhost:9004/api/registerRider",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -86,7 +86,7 @@ function register(){
 async function getRider(){
     const email = document.getElementById("login_email").value
     try {
-        const data = await fetch("http://localhost:9003/api/getRider", {
+        const data = await fetch("http://localhost:9004/api/getRider", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

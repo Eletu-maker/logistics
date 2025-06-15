@@ -52,7 +52,7 @@ async function orderRide(){
         const receiverNumber = document.getElementById("receiver_number").value
         const receiverAddress = document.getElementById("receiver_address").value
         try {
-            const info = await  fetch("http://localhost:9003/api/orderRide",{
+            const info = await  fetch("http://localhost:9004/api/orderRide",{
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -90,7 +90,7 @@ async function cancelRide(){
     const  email = data.email
     console.log(email)
     try {
-        const info = await  fetch("http://localhost:9003/api/cancelTrip",{
+        const info = await  fetch("http://localhost:9004/api/cancelTrip",{
             method:"POST",
             headers: {
                 "Content-Type": "application/json"
@@ -127,7 +127,7 @@ async function getSender(){
     const value = getinfo()
     const email = value.email
     try{
-        const data = await fetch("http://localhost:9003/api/getSender", {
+        const data = await fetch("http://localhost:9004/api/getSender", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -158,7 +158,7 @@ async function startTrip(){
     const value = getinfo()
     const email = value.email
     try {
-        const data = await fetch("http://localhost:9003/api/startTrip",{
+        const data = await fetch("http://localhost:9004/api/startTrip",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -195,7 +195,7 @@ async function logout(){
 
     try{
 
-        const data = await fetch("http://localhost:9003/api/logoutSender",{
+        const data = await fetch("http://localhost:9004/api/logoutSender",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -232,7 +232,7 @@ async function arrived(){
 
     try {
 
-        const data = await fetch("http://localhost:9003/api/arrived",{
+        const data = await fetch("http://localhost:9004/api/arrived",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
